@@ -7,6 +7,7 @@ export class BurgersController extends BaseController {
     this.router.get('/test', this.testBurgers)
     this.router.get('', this.getBurgers)
     this.router.post('', this.createBurger)
+    this.router.delete('/:burgerId', this.devourBurger)
     //...
   }
 
@@ -37,7 +38,15 @@ export class BurgersController extends BaseController {
     }
   }
 
-
+  async devourBurger(request, response, next) {
+    try {
+      const burgerId = request.params.burgerId
+      await burgerService.devourBurger(burgerId)
+      response.send("Burger was Devoured")
+    } catch (error) {
+      next(error)
+    }
+  }
 
 
 }

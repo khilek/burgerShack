@@ -18,7 +18,13 @@ class BurgerService {
 
 
 
+  async devourBurger(burgerId) {
+    const burgerToDevour = await dbContext.Burgers.findById(burgerId)
 
+    if (!burgerToDevour) throw new Error(`Sorry, burger was devoured already ${burgerId}`)
+
+    await dbContext.Burgers.deleteOne({ _id: burgerId })
+  }
 
 
 
